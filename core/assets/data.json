@@ -1,0 +1,38 @@
+{
+  "maps": [
+    {
+      "name": "map01",
+      "filename": "map01.tmx",
+      "teamInitPosition": [{"x": 0, "y": 0}]
+    }
+  ],
+  "heroes": [
+    {
+      "name": "John",
+      "id": "john",
+      "type": "warrior",
+      "texture": {
+        "filename": "purple16px.png",
+        "textureWidth": 9,
+        "textureHeight": 8
+      },
+      "animationPositions": {
+        "idle": [1],
+        "walkingUp": [7,8,9],
+        "walkingDown": [1,2,3],
+        "walkingRight": [4,5,6],
+        "wakingLeft": {
+          "basedOn": "walkingLeft",
+          "transform": "verticalMirror"
+        }
+      },
+      "baseProperties": {
+        "str":1,
+        "atk":10,
+        "def":1,
+        "hpMax" :20
+      }
+
+    }
+  ]
+}

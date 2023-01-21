@@ -1,0 +1,77 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema#",
+	"id": "mySchema",
+	"type": "object",
+	"properties": {
+		"UID": {
+			"type": "string"
+		},
+		"name": {
+			"type": "string"
+		},
+		"desc": {
+			"type": "string"
+		},
+		"map": {
+			"type": "string"
+		},
+		"globalEvents": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"UID": {
+						"type": "string"
+					},
+					"triggers": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"required": ["triggerType"],
+							"anyOf": [
+								{
+									"properties": {
+										"triggerType": {"const": "start"}
+									}
+								},
+								{
+									"properties": {
+										"triggerType": {"const": "turnIndex"},
+										"index": {"type": "number"}
+									}
+								},
+								{
+									"properties": {
+										"triggerType": {"enum": ["positionReached", "call", "itemUsed"]}
+									}
+								}
+							]
+						}
+					},
+					"effects": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"required": ["effectType"],
+							"anyOf": [
+								{
+									"properties": {
+										"effectType": {"const": "textMsg"},
+										"text": {"type": "string"}
+									},
+									"required": ["text"]
+								},
+								{
+									"properties": {
+										"effectType": {"enum": ["statsUpdate", "teamsUpdate", "memberUpdate"]}
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	},
+	"required": ["UID", "name", "map"]
+}

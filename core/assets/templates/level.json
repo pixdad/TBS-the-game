@@ -1,0 +1,21 @@
+{
+  "UID": "level1",
+  "templateType": "levelTemplate",
+  "name": "My super Level 1",
+  "desc": "This is the first level of my game",
+  "map": "map01.tmx",
+  "globalEvents": [
+    {
+      "UID": "initText",
+      "triggers": [
+        {"triggerType": "start"}
+      ],
+      "effects": [
+        {
+          "effectType": "textMsg",
+          "text": "Ceci est un message d'intro du level"}
+      ]
+    }
+  ]
+
+}

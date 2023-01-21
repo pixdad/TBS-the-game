@@ -1,0 +1,14 @@
+{
+	"UID": "basicNewWorld",
+	"templateType": "worldTemplate",
+	"name": "A basic new world template",
+	"desc": "The template of a new basic world",
+
+	"levels": [
+		{
+			"levelUID": "level1",
+			"startLevel": true
+		}
+	]
+
+}
