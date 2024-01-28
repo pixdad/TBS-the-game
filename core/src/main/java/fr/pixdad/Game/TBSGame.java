@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class TBSGame extends Game {
 
-    public static Boolean IS_GUI_DEBUG = true;
+    public static Boolean IS_GUI_DEBUG = false;
 
     private final ArrayList<Screen> screens = new ArrayList<Screen>();
     public SpriteBatch batch;
@@ -42,7 +42,6 @@ public class TBSGame extends Game {
         DataManager.get().init();
 
         addScreen(new MainMenuScreen(this));
-        //addScreen(new FightingScreen(this, "map01.tmx", 1));
     }
 
 

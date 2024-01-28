@@ -1,6 +1,6 @@
-package fr.pixdad.Game.fight.action;
+package fr.pixdad.Game.battle.action;
 
-import fr.pixdad.Game.fight.states.FightingScreen;
+import fr.pixdad.Game.battle.core.BattleScreen;
 
 public class WaitAction extends Action {
 
@@ -13,7 +13,7 @@ public class WaitAction extends Action {
     }
 
     @Override
-    public boolean animate(float delta, FightingScreen screen) {
+    public boolean animate(float delta, BattleScreen screen) {
         if(_deltaStart == 0) _deltaStart = delta;
         float elsapsed = delta - _deltaStart;
 

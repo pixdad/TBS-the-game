@@ -1,19 +1,17 @@
 package fr.pixdad.Game.data.entities;
 
+import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Polyline;
 import com.badlogic.gdx.math.Vector2;
-import fr.pixdad.Game.data.DataManagerOld;
-import fr.pixdad.Game.fight.Fighter;
-import fr.pixdad.Game.fight.Player;
-import fr.pixdad.Game.fight.states.FightingScreen;
-import fr.pixdad.Game.tiled.maps.Layers;
+import fr.pixdad.Game.battle.core.Layers;
 import fr.pixdad.Game.tiled.utils.Coordinates;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class GameLevel {
@@ -25,11 +23,12 @@ public class GameLevel {
     protected final TiledMap map;
     protected final Layers layers;
     protected final Vector2 levelSize;
+    protected final Vector2 cellSize;
 
-    protected Player[] players;
-
-    private Boolean isAtScreen = false;
-    private FightingScreen screenAttached;
+    /**
+     * margin of non-accessible cell around the edge of the map
+     */
+    private int cellCountMargin = 1;//TODO: get it from the tmx map properties ?
 
     public GameLevel(String name, String mapTmxPath) {
         this.mapTmxPath = mapTmxPath;
@@ -46,21 +45,19 @@ public class GameLevel {
         );
 
         levelSize = new Vector2(layers.tilesGround.getWidth(), layers.tilesGround.getHeight() );
-
-        this.players = DataManagerOld.createPlayers();
+        cellSize = new Vector2(layers.tilesGround.getTileWidth(), layers.tilesGround.getTileWidth() );
 
     }
-
-    /*public void attachScreen(FightingScreen screen) {
-        this.screenAttached = screen;
-        this.isAtScreen = true;
-    }*/
 
     //GETTERS & SETTERS
 
 
-    public Vector2 getSize() {
+    public Vector2 getLevelSize() {
         return levelSize;
+    }
+
+    public Vector2 getCellSize() {
+        return cellSize;
     }
 
     public TiledMap getMap() { return map; }
@@ -82,27 +79,6 @@ public class GameLevel {
     }
 
     public Layers getLayers() { return layers; }
-
-    public Player[] getPlayers() { return players; }
-
-    public List<Fighter> getAllFighters(boolean deadIncluded) {
-        List<Fighter> all = new ArrayList<>();
-        for (Player player : players) {
-            all.addAll( player.getTeam(deadIncluded));
-        }
-        return all;
-    }
-
-    public Fighter getFighter(Vector2 cellCoordinates, boolean deadIncluded) {
-        for (Fighter fighter : getAllFighters(deadIncluded)) {
-            if (fighter.getPosition().cell().equals(cellCoordinates)) return fighter;
-        }
-        return null;
-    }
-
-    public Fighter getFighter(Coordinates coordinates, boolean deadIncluded) {
-        return getFighter(coordinates.cell(), deadIncluded);
-    }
 
 
     public ArrayList<Coordinates> getIntersectCoordinates(ArrayList<Coordinates> first, ArrayList<Coordinates> second) {
@@ -132,12 +108,33 @@ public class GameLevel {
         return (ogp != -1) ? ogp == 1 : gp == 1;
     }
 
+    /**
+     *
+     * @return
+     */
+    public ArrayList<Vector2> getAccessibleCellPositions() {
+
+        Polyline polyline = ((PolylineMapObject) layers.cells.getObjects().get("zone_accessible")).getPolyline();
+        Polygon polygon = new Polygon(polyline.getVertices());
+        polygon.setPosition(polyline.getX(), polyline.getY());
+
+        ArrayList<Vector2> accessibles = new ArrayList<>();
+        for (int col = cellCountMargin; col < levelSize.x - cellCountMargin; col++) {
+            for (int row = cellCountMargin; row < levelSize.y - cellCountMargin; row++) {
+                Vector2 woorldCoord = new Vector2(col, row).scl(cellSize);
+                if (isCellPositionAccessible(col, row) && polygon.contains(woorldCoord))
+                    accessibles.add(new Vector2(col, row));
+            }
+        }
+        return accessibles;
+    }
+
     //TODO: implements success logic
-    public boolean checkSuccessConditions() {
+    public boolean isVictory() {
         return false;
     }
     //TODO: implements fail logic
-    public boolean checkFailureConditions() {
+    public boolean isDefeat() {
         return false;
     }
 

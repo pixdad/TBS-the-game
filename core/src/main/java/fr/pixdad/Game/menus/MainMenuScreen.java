@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
-import fr.pixdad.Game.fight.states.FightingScreen;
+import fr.pixdad.Game.battle.core.BattleScreen;
 import fr.pixdad.Game.data.entities.GameLevel;
 import fr.pixdad.Game.TBSGame;
 import fr.pixdad.Game.data.DataManager;
@@ -164,7 +164,7 @@ public class MainMenuScreen implements Screen {
             levelButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    game.addScreen(new FightingScreen(game, level, 1));
+                    game.addScreen(new BattleScreen(game, level, 1));
                 }
             });
         }

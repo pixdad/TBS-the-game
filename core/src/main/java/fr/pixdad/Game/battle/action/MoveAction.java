@@ -1,18 +1,18 @@
-package fr.pixdad.Game.fight.action;
+package fr.pixdad.Game.battle.action;
 
-import fr.pixdad.Game.fight.Fighter;
-import fr.pixdad.Game.fight.states.FightingScreen;
-import fr.pixdad.Game.tiled.utils.CellMapObject;
+import fr.pixdad.Game.battle.core.BoardCellObject;
+import fr.pixdad.Game.battle.core.Fighter;
+import fr.pixdad.Game.battle.core.BattleScreen;
 import fr.pixdad.Game.tiled.utils.Coordinates;
 
-public class MoveAction extends Action<Fighter, CellMapObject> {
+public class MoveAction extends Action<Fighter, BoardCellObject> {
 
-    public MoveAction(Fighter source, CellMapObject target) {
+    public MoveAction(Fighter source, BoardCellObject target) {
         super(source, target);
     }
 
     @Override
-    public boolean animate(float delta, FightingScreen screen) {
+    public boolean animate(float delta, BattleScreen screen) {
         if ( !isInit() ) {
             _isDone = true;
             return false;

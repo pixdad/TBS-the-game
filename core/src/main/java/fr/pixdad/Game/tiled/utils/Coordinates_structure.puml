@@ -1,0 +1,202 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": ""
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false // root node is included
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": false,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": false
+  },
+  "rootClass": "fr.pixdad.Game.tiled.utils.Coordinates"
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_987858552 { 
+   	label=pixdad
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_583152824 { 
+   	label=Game
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Coordinates1860649759[
+	label="(C)Coordinates"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+Fighter2110584278[
+	label="(C)Fighter"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+FightingScreen1363904070[
+	label="(C)FightingScreen"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+GameLevel154637267[
+	label="(C)GameLevel"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+GlobalFState1363904070[
+	label="(C)GlobalFState"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+PlayablePlayer2110584278[
+	label="(C)PlayablePlayer"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+Player2110584278[
+	label="(C)Player"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+StatsUI1905035480[
+	label="(C)StatsUI"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+TiledGraph1567296106[
+	label="(C)TiledGraph"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+TiledScreen1740837991[
+	label="(C)TiledScreen"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+Fighter2110584278 -> Coordinates1860649759[label="_position
+[0..1]"];
+Fighter2110584278 -> Player2110584278[label="player
+[0..1]"];
+FightingScreen1363904070 -> Fighter2110584278[label="fighterMapObjects
+[0..*]"];
+FightingScreen1363904070 -> Fighter2110584278[label="source
+[0..1]"];
+FightingScreen1363904070 -> StatsUI1905035480[label="statsUI
+[0..1]"];
+GameLevel154637267 -> FightingScreen1363904070[label="screenAttached
+[0..1]"];
+GameLevel154637267 -> Player2110584278[label="players
+[0..*]"];
+GlobalFState1363904070 -> FightingScreen1363904070[label="screen
+[0..1]"];
+GlobalFState1363904070 -> FightingScreen1363904070[label="stateMachine
+[0..1]"];
+GlobalFState1363904070 -> Player2110584278[label="currentPlayer
+[0..1]"];
+Player2110584278 -> Fighter2110584278[label="fightersToAct
+[0..*]"];
+Player2110584278 -> Fighter2110584278[label="team
+[0..*]"];
+Player2110584278 -> PlayablePlayer2110584278[arrowhead=none, arrowtail=empty, dir=both];
+StatsUI1905035480 -> Fighter2110584278[label="selected
+[0..1]"];
+StatsUI1905035480 -> Fighter2110584278[label="targeted
+[0..1]"];
+TiledGraph1567296106 -> FightingScreen1363904070[label="screen
+[0..1]"];
+TiledScreen1740837991 -> FightingScreen1363904070[arrowhead=none, arrowtail=empty, dir=both];
+    
+}
+@enduml

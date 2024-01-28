@@ -1,17 +1,18 @@
-package fr.pixdad.Game.fight.states;
+package fr.pixdad.Game.battle.states;
 
-import fr.pixdad.Game.fight.action.Action;
+import fr.pixdad.Game.battle.core.BattleScreen;
+import fr.pixdad.Game.battle.action.Action;
 
 import java.util.ArrayDeque;
 
-public class ActionExecutionFState extends GlobalFState {
+public class ActionExecutionFState extends BattlePhase {
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
     }
 
     @Override
-    public void update(FightingScreen screen) {
+    public void update(BattleScreen screen) {
         super.update(screen);
 
         //Execute each action, one after the previous (FIFO list)

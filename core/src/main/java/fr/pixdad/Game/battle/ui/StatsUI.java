@@ -1,22 +1,17 @@
-package fr.pixdad.Game.fight.ui;
+package fr.pixdad.Game.battle.ui;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
 import fr.pixdad.Game.TBSGame;
 import fr.pixdad.Game.data.entities.StatsValue;
-import fr.pixdad.Game.fight.Fighter;
+import fr.pixdad.Game.battle.core.Fighter;
 
 public class StatsUI extends Group {
 
     Fighter selected;
     Fighter targeted;
-    private boolean _isFighing = false;
     Skin skin;
 
     Window selectWin;
@@ -109,6 +104,7 @@ public class StatsUI extends Group {
     private String formatStat(int current, int modif) {
         return current + (modif!=0 ? " [RED](" + Math.max(current - modif, 0) + ")[]" : "");
     }
+
 
 
 }

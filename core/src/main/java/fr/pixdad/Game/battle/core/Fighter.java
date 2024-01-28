@@ -1,9 +1,8 @@
-package fr.pixdad.Game.fight;
+package fr.pixdad.Game.battle.core;
 
 import fr.pixdad.Game.data.entities.Character;
 import fr.pixdad.Game.data.entities.Equipment;
 import fr.pixdad.Game.data.entities.StatsValue;
-import fr.pixdad.Game.fight.states.FightingScreen;
 import fr.pixdad.Game.tiled.utils.Coordinates;
 import com.badlogic.gdx.math.Vector2;
 
@@ -69,7 +68,7 @@ public class Fighter {
     }
 
     //We update both the position of the fighter & its TextureMapObject
-    public void setPosition(Coordinates position, FightingScreen screen) {
+    public void setPosition(Coordinates position, BattleScreen screen) {
         this._position.setCellCoordinates(position.cell());
     }
     public Coordinates getPosition() {

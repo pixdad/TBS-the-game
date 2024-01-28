@@ -1,40 +1,42 @@
-package fr.pixdad.Game.tiled.utils;
+package fr.pixdad.Game.battle.utils;
 
 import com.badlogic.gdx.ai.pfa.*;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import fr.pixdad.Game.fight.Player;
-import fr.pixdad.Game.fight.states.FightingScreen;
+import fr.pixdad.Game.battle.core.BattleState;
+import fr.pixdad.Game.battle.core.BoardCellObject;
+import fr.pixdad.Game.battle.core.Player;
+import fr.pixdad.Game.battle.core.BattleScreen;
+import fr.pixdad.Game.data.entities.GameLevel;
 
-public class TiledPathFinder {
+public class CellMapPathFinder {
 
-    public static class TiledGraph implements IndexedGraph<CellMapObject> {
+    public static class CellMapGraph implements IndexedGraph<BoardCellObject> {
 
-        final FightingScreen screen;
+        BattleState battleState;
+        public BoardCellObject to;
+        public BoardCellObject from;
 
-        public CellMapObject to;
-        public CellMapObject from;
-
-        public TiledGraph(FightingScreen screen) {
-            this.screen = screen;
+        public CellMapGraph(BattleState battleState) {
+            this.battleState = battleState;
         }
 
-        public CellMapObject to() {
+        public BoardCellObject to() {
             return to;
         }
 
-        public TiledGraph to(CellMapObject to) {
+        public CellMapGraph to(BoardCellObject to) {
             this.to = to;
             return this;
         }
 
-        public CellMapObject from() {
+        public BoardCellObject from() {
             return from;
         }
 
-        public TiledGraph from(CellMapObject from) {
+        public CellMapGraph from(BoardCellObject from) {
             this.from = from;
             return this;
         }
@@ -46,44 +48,44 @@ public class TiledPathFinder {
         private Boolean isEndOnEnemyAllowed = true;
 
         @Override
-        public int getIndex(CellMapObject node) {
+        public int getIndex(BoardCellObject node) {
             return getIndex(node, true, false, false, true);
         }
 
-        public int getIndex(CellMapObject node,
+        public int getIndex(BoardCellObject node,
                             Boolean isPassageOnAllyAllowed, Boolean isPassageOnEnemyAllowed, Boolean isEndOnAllyAllowed, Boolean isEndOnEnemyAllowed) {
             this.isEndOnAllyAllowed = isEndOnAllyAllowed;
             this.isEndOnEnemyAllowed = isEndOnEnemyAllowed;
             this.isPassageOnAllyAllowed = isPassageOnAllyAllowed;
             this.isPassageOnEnemyAllowed = isPassageOnEnemyAllowed;
-            return screen.getBoard().indexOf(node);
+            return battleState.getBoard().indexOf(node);
         }
 
         @Override
         public int getNodeCount() {
-            return screen.getBoard().size();
+            return battleState.getBoard().size();
         }
 
         @Override
-        public Array<Connection<CellMapObject>> getConnections(CellMapObject fromNode) {
+        public Array<Connection<BoardCellObject>> getConnections(BoardCellObject fromNode) {
             Vector2 position = fromNode.getCellPosition();
-            Array<Connection<CellMapObject>> connections = new Array<>();
+            Array<Connection<BoardCellObject>> connections = new Array<>();
 
-            CellMapObject[] surrounds = {
-                    screen.getBoardCell(new Vector2(position.x - 1, position.y)),
-                    screen.getBoardCell(new Vector2(position.x + 1, position.y)),
-                    screen.getBoardCell(new Vector2(position.x, position.y - 1)),
-                    screen.getBoardCell(new Vector2(position.x, position.y + 1)),
+            BoardCellObject[] surrounds = {
+                    battleState.getBoardCell(new Vector2(position.x - 1, position.y)),
+                    battleState.getBoardCell(new Vector2(position.x + 1, position.y)),
+                    battleState.getBoardCell(new Vector2(position.x, position.y - 1)),
+                    battleState.getBoardCell(new Vector2(position.x, position.y + 1)),
             };
 
-            for (CellMapObject surround : surrounds) {
+            for (BoardCellObject surround : surrounds) {
                 if(surround == null) continue;
-                else if(screen.getLevel().getFighter(surround.getCellPosition(), false) == null) {
+                else if(battleState.getFighter(surround.getCellPosition(), false) == null) {
                     connections.add(new DefaultConnection<>(fromNode, surround));
                 }
                 else {
-                    Player playerForFighter = screen.getLevel().getFighter(surround.getCellPosition(), false).player;
-                    Player currentPlayer = screen.currentPlayer();
+                    Player playerForFighter = battleState.getFighter(surround.getCellPosition(), false).player;
+                    Player currentPlayer = battleState.currentPlayer();
 
                     //List accept conditions
                     if(     surround == this.to() && playerForFighter == currentPlayer && isEndOnAllyAllowed ||
@@ -100,28 +102,28 @@ public class TiledPathFinder {
 
     }
 
-    final TiledGraph graph;
-    final IndexedAStarPathFinder<CellMapObject> pathFinder;
-    final Heuristic<CellMapObject> heuristic = new Heuristic<>() {
+    final CellMapGraph graph;
+    final IndexedAStarPathFinder<BoardCellObject> pathFinder;
+    final Heuristic<BoardCellObject> heuristic = new Heuristic<>() {
         @Override
-        public float estimate(CellMapObject node, CellMapObject endNode) {
+        public float estimate(BoardCellObject node, BoardCellObject endNode) {
             if (node == null || endNode == null) return -1f;
             return node.getCellPosition().dst2(endNode.getCellPosition());
         }
     };
 
-    public TiledPathFinder(final FightingScreen screen) {
-        this.graph = new TiledGraph(screen);
-        this.pathFinder = new IndexedAStarPathFinder<CellMapObject>(graph);
+    public CellMapPathFinder(final BattleState battleState) {
+        this.graph = new CellMapGraph(battleState);
+        this.pathFinder = new IndexedAStarPathFinder<BoardCellObject>(graph);
     }
 
-    public boolean searchConnectionPath(CellMapObject startNode, CellMapObject endNode, GraphPath<Connection<CellMapObject>> outPath) {
+    public boolean searchConnectionPath(BoardCellObject startNode, BoardCellObject endNode, GraphPath<Connection<BoardCellObject>> outPath) {
         if (startNode == null || endNode == null) return false;
         graph.from(startNode).to(endNode);
         return pathFinder.searchConnectionPath(startNode, endNode, heuristic, outPath);
     }
 
-    public boolean searchNodePath(CellMapObject startNode, CellMapObject endNode, GraphPath<CellMapObject> outPath) {
+    public boolean searchNodePath(BoardCellObject startNode, BoardCellObject endNode, GraphPath<BoardCellObject> outPath) {
         if (startNode == null || endNode == null) return false;
         graph.from(startNode).to(endNode);
         return pathFinder.searchNodePath(startNode, endNode, heuristic, outPath);

@@ -4,14 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import fr.pixdad.Game.fight.PlayablePlayer;
-import fr.pixdad.Game.fight.Player;
+import fr.pixdad.Game.battle.core.PlayablePlayer;
+import fr.pixdad.Game.battle.core.Player;
 import fr.pixdad.Game.data.entities.Character;
 import fr.pixdad.Game.data.entities.StatsValue;
 import fr.pixdad.Game.data.entities.GameLevel;
 import fr.pixdad.Game.data.entities.WarriorCharacter;
-import fr.pixdad.Game.fight.Fighter;
-import fr.pixdad.Game.tiled.utils.CellMapObject;
+import fr.pixdad.Game.battle.core.Fighter;
+import fr.pixdad.Game.battle.core.BoardCellObject;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,7 +31,7 @@ public class DataManagerOld {
     private static JsonValue gameData;
 
 
-    public static final HashMap<CellMapObject.CellType, Texture> cellMapObjectTextures = new HashMap<CellMapObject.CellType, Texture>();
+    public static final HashMap<BoardCellObject.CellType, Texture> cellMapObjectTextures = new HashMap<BoardCellObject.CellType, Texture>();
     public static final HashMap<String, Texture> customTextures = new HashMap<String, Texture>();
     public static final HashMap<String, Character> characters = new HashMap<String, Character>();
     public static final HashMap<String, GameLevel> levels = new HashMap<String, GameLevel>();
@@ -141,7 +141,7 @@ public class DataManagerOld {
 
 
         //CellMapObjects textures
-        for (CellMapObject.CellType cellType : CellMapObject.CellType.values()) {
+        for (BoardCellObject.CellType cellType : BoardCellObject.CellType.values()) {
             Color fillColor = null;
             Color lineColor = Color.BLACK;
             switch (cellType) {
@@ -191,7 +191,7 @@ public class DataManagerOld {
         }
     }
 
-    public static Texture getCellMapObjectTexture(CellMapObject.CellType type) {
+    public static Texture getCellMapObjectTexture(BoardCellObject.CellType type) {
         return cellMapObjectTextures.get(type);
     }
     public static Texture getCustomTexture(String key) {

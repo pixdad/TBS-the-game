@@ -1,11 +1,12 @@
-package fr.pixdad.Game.fight.states;
+package fr.pixdad.Game.battle.states;
 
 import com.badlogic.gdx.math.Vector2;
 import fr.pixdad.Game.data.entities.StatsValue;
-import fr.pixdad.Game.fight.Fighter;
-import fr.pixdad.Game.tiled.utils.CellMapObject;
+import fr.pixdad.Game.battle.core.BoardCellObject;
+import fr.pixdad.Game.battle.core.Fighter;
+import fr.pixdad.Game.battle.core.BattleScreen;
 
-public class PersoSelectionFState extends GlobalFState {
+public class PersoSelectionFState extends BattlePhase {
 
     /**
      * On enter:
@@ -14,7 +15,7 @@ public class PersoSelectionFState extends GlobalFState {
      * - Marks the ALLY, the SELECTABLE_ALLYs, and the ENNEMYs (and populate {@link #modifiedCells} with them)
      */
     @Override
-    public void enter(FightingScreen screen) {
+    public void enter(BattleScreen screen) {
         super.enter(screen);
         screen.getStatsUI().empty();
         screen.getCursor().setVisible(true);
@@ -27,21 +28,21 @@ public class PersoSelectionFState extends GlobalFState {
         }
 
         for (Fighter fighter : screen.getLevel().getAllFighters(false)) {
-            CellMapObject c = screen.getBoardCell(fighter.getPosition().cell());
+            BoardCellObject c = screen.getBoardCell(fighter.getPosition().cell());
             if (fighter.player == currentPlayer) {
-                c.setType(CellMapObject.CellType.ALLY);
-                if (currentPlayer.fightersToAct.contains(fighter)) c.setType(CellMapObject.CellType.SELECTABLE_ALLY);
+                c.setType(BoardCellObject.CellType.ALLY);
+                if (currentPlayer.fightersToAct.contains(fighter)) c.setType(BoardCellObject.CellType.SELECTABLE_ALLY);
             }
             else {
-                c.setType(CellMapObject.CellType.ENNEMY);
+                c.setType(BoardCellObject.CellType.ENNEMY);
             }
             modifiedCells.add(c);
         }
     }
 
     @Override
-    public void update(FightingScreen screen) {
-        Fighter source = screen.currentPlayer().selectSource(screen.level);
+    public void update(BattleScreen screen) {
+        Fighter source = screen.currentPlayer().getSource(screen.level);
         if(source != null) {
             screen.source = source;
             screen.stateMachine.changeState(FightingScreenState.SELECT_TARGET.get());
@@ -56,8 +57,8 @@ public class PersoSelectionFState extends GlobalFState {
     public boolean mouseMoved(int screenX, int screenY) {
         boolean result = true;
         super.mouseMoved(screenX, screenY);
-        CellMapObject cursor = screen.getCursor();
-        cursor.setType(CellMapObject.CellType.CURSOR);
+        BoardCellObject cursor = screen.getCursor();
+        cursor.setType(BoardCellObject.CellType.CURSOR);
         cursor.setVisible(true);
 
         screen.getStatsUI().empty();

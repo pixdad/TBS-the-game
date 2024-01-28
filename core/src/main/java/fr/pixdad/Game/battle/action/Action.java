@@ -1,6 +1,6 @@
-package fr.pixdad.Game.fight.action;
+package fr.pixdad.Game.battle.action;
 
-import fr.pixdad.Game.fight.states.FightingScreen;
+import fr.pixdad.Game.battle.core.BattleScreen;
 
 public abstract class Action<U,V> {
 
@@ -19,7 +19,7 @@ public abstract class Action<U,V> {
 
     protected boolean _isDone = false;
 
-    public abstract boolean animate(float delta, FightingScreen screen);
+    public abstract boolean animate(float delta, BattleScreen screen);
 
     public Action(U source, V target) {
         _source = source;

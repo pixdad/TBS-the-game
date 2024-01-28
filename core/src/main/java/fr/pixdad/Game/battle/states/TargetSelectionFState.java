@@ -1,11 +1,12 @@
-package fr.pixdad.Game.fight.states;
+package fr.pixdad.Game.battle.states;
 
 import com.badlogic.gdx.Input;
 import fr.pixdad.Game.data.entities.StatsValue;
-import fr.pixdad.Game.fight.Fighter;
-import fr.pixdad.Game.tiled.utils.CellMapObject;
+import fr.pixdad.Game.battle.core.BoardCellObject;
+import fr.pixdad.Game.battle.core.Fighter;
+import fr.pixdad.Game.battle.core.BattleScreen;
 
-public class TargetSelectionFState extends GlobalFState {
+public class TargetSelectionFState extends BattlePhase {
 
     /**
      * When enter SELECT_TARGET:
@@ -18,20 +19,20 @@ public class TargetSelectionFState extends GlobalFState {
      * </ul>
      */
     @Override
-    public void enter(FightingScreen screen) {
+    public void enter(BattleScreen screen) {
         super.enter(screen);
         screen.getCursor().setVisible(true);
 
         for (Fighter fighter : screen.getLevel().getAllFighters(false)) {
-            CellMapObject c = screen.getBoardCell(fighter.getPosition().cell());
+            BoardCellObject c = screen.getBoardCell(fighter.getPosition().cell());
             if (fighter.player == currentPlayer) {
-                c.setType(CellMapObject.CellType.ALLY);
+                c.setType(BoardCellObject.CellType.ALLY);
                 if (screen.source == fighter) {
-                    c.setType(CellMapObject.CellType.SELF);
+                    c.setType(BoardCellObject.CellType.SELF);
                 }
             }
             else {
-                c.setType(CellMapObject.CellType.SELECTABLE_ENNEMY);
+                c.setType(BoardCellObject.CellType.SELECTABLE_ENNEMY);
             }
             modifiedCells.add(c);
         }
@@ -39,7 +40,7 @@ public class TargetSelectionFState extends GlobalFState {
     }
 
     @Override
-    public void update(FightingScreen screen) {
+    public void update(BattleScreen screen) {
 
     }
 
@@ -86,8 +87,8 @@ public class TargetSelectionFState extends GlobalFState {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         super.touchUp(screenX, screenY, pointer, button);
-        CellMapObject cursor = screen.getCursor();
-        cursor.setType(CellMapObject.CellType.CURSOR);
+        BoardCellObject cursor = screen.getCursor();
+        cursor.setType(BoardCellObject.CellType.CURSOR);
 
         //CellMapObject cell = screen.getBoardCell(cursor.getCellPosition());
         if (searchPath(5)) { //TODO: get range dynamically. For now, it is hardcoded at 5

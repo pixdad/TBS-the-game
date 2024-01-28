@@ -74,7 +74,6 @@ public abstract class TiledScreen implements Screen {
         this.zoom = zoom;
 
         screenSizePx = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
-        //cellSize = new Vector2(layers.tilesGround.getTileWidth()*scale, layers.tilesGround.getTileWidth()*scale );
         cellSize = new Vector2(groundLayer.getTileWidth(), groundLayer.getTileWidth() );
 
         Vector2 cellCountSize = new Vector2(groundLayer.getWidth(), groundLayer.getHeight() );

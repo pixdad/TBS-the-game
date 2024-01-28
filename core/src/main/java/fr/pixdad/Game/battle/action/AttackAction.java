@@ -1,7 +1,7 @@
-package fr.pixdad.Game.fight.action;
+package fr.pixdad.Game.battle.action;
 
-import fr.pixdad.Game.fight.Fighter;
-import fr.pixdad.Game.fight.states.FightingScreen;
+import fr.pixdad.Game.battle.core.Fighter;
+import fr.pixdad.Game.battle.core.BattleScreen;
 
 public class AttackAction extends Action<Fighter, Fighter> {
 
@@ -12,7 +12,7 @@ public class AttackAction extends Action<Fighter, Fighter> {
     }
 
     @Override
-    public boolean animate(float delta, FightingScreen screen) {
+    public boolean animate(float delta, BattleScreen screen) {
 
         if( !isInit()) {
             //TODO: Trow error

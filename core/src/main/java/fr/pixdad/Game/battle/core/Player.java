@@ -1,6 +1,7 @@
-package fr.pixdad.Game.fight;
+package fr.pixdad.Game.battle.core;
 
 import fr.pixdad.Game.data.entities.GameLevel;
+import fr.pixdad.Game.battle.action.Action;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,9 @@ public abstract class Player {
     private final List<Fighter> team = new ArrayList<Fighter>(); //all the fighters
     public final List<Fighter> fightersToAct = new ArrayList<Fighter>(); //selectable fighters remaining
 
+    private Fighter source;
+    private BoardCellObject target;
+    private Action<Object, Object> action;
 
     public Player(String name) {
         this.name = name;
@@ -53,9 +57,9 @@ public abstract class Player {
     }
 
     //region player actions
-    public abstract Fighter selectSource(GameLevel level);
-    public abstract Fighter selectTarget(GameLevel level);
-    public abstract void selectAction(GameLevel level);
+    public abstract Fighter getSource(GameLevel level);
+    public abstract Fighter computeTarget(GameLevel level);
+    public abstract void computeAction(GameLevel level);
 
-
+    //public abstract void onClickOnFighter();
 }

@@ -1,0 +1,212 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": ""
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": true,
+    "cutInterfaceStructures": true,
+    "cutDataStructures": true,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 3,
+    "backwardDepth": 3,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false // root node is included
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": false,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": false
+  },
+  "rootClass": "fr.pixdad.Game.fighting.core.CellMapObject"
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_987858552 { 
+   	label=pixdad
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_583152824 { 
+   	label=Game
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   ActionExecutionFState1363904070[
+	label="(C)ActionExecutionFState"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+ActionSelectionFState1363904070[
+	label="(C)ActionSelectionFState"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+CellMapObject1082501347[
+	label="(C)CellMapObject"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+FightingScreen1363904070[
+	label="(C)FightingScreen"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+GameLevel154637267[
+	label="(C)GameLevel"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+GlobalFState1363904070[
+	label="(C)GlobalFState"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+PersoSelectionFState1363904070[
+	label="(C)PersoSelectionFState"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+TargetSelectionFState1363904070[
+	label="(C)TargetSelectionFState"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+TiledGraph1567296106[
+	label="(C)TiledGraph"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+TiledPathFinder1082501347[
+	label="(C)TiledPathFinder"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+
+TiledScreen1740837991[
+	label="(C)TiledScreen"
+	style=filled
+	shape=rect
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+FightingScreen1363904070 -> CellMapObject1082501347[label="board
+[0..*]"];
+FightingScreen1363904070 -> CellMapObject1082501347[label="cursor
+[0..1]"];
+FightingScreen1363904070 -> CellMapObject1082501347[label="target
+[0..1]"];
+FightingScreen1363904070 -> GlobalFState1363904070[label="stateMachine
+[0..1]"];
+FightingScreen1363904070 -> TiledPathFinder1082501347[label="pathfinder
+[0..1]"];
+GameLevel154637267 -> FightingScreen1363904070[label="screenAttached
+[0..1]"];
+GlobalFState1363904070 -> ActionExecutionFState1363904070[arrowhead=none, arrowtail=empty, dir=both];
+GlobalFState1363904070 -> ActionSelectionFState1363904070[arrowhead=none, arrowtail=empty, dir=both];
+GlobalFState1363904070 -> CellMapObject1082501347[label="graphPath
+[0..1]"];
+GlobalFState1363904070 -> CellMapObject1082501347[label="modifiedCells
+[0..*]"];
+GlobalFState1363904070 -> FightingScreen1363904070[label="screen
+[0..1]"];
+GlobalFState1363904070 -> FightingScreen1363904070[label="stateMachine
+[0..1]"];
+GlobalFState1363904070 -> PersoSelectionFState1363904070[arrowhead=none, arrowtail=empty, dir=both];
+GlobalFState1363904070 -> TargetSelectionFState1363904070[arrowhead=none, arrowtail=empty, dir=both];
+TiledGraph1567296106 -> CellMapObject1082501347[label="from
+[0..1]"];
+TiledGraph1567296106 -> CellMapObject1082501347[label="to
+[0..1]"];
+TiledGraph1567296106 -> FightingScreen1363904070[label="screen
+[0..1]"];
+TiledPathFinder1082501347 -> CellMapObject1082501347[label="heuristic
+[0..1]"];
+TiledPathFinder1082501347 -> CellMapObject1082501347[label="pathFinder
+[0..1]"];
+TiledScreen1740837991 -> FightingScreen1363904070[arrowhead=none, arrowtail=empty, dir=both];
+    
+}
+@enduml

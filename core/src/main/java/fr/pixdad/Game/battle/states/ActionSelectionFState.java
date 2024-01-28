@@ -1,23 +1,24 @@
-package fr.pixdad.Game.fight.states;
+package fr.pixdad.Game.battle.states;
 
-import fr.pixdad.Game.fight.Fighter;
-import fr.pixdad.Game.fight.action.AttackAction;
-import fr.pixdad.Game.fight.action.MoveAction;
+import fr.pixdad.Game.battle.core.Fighter;
+import fr.pixdad.Game.battle.core.BattleScreen;
+import fr.pixdad.Game.battle.action.AttackAction;
+import fr.pixdad.Game.battle.action.MoveAction;
 
-public class ActionSelectionFState extends GlobalFState{
+public class ActionSelectionFState extends BattlePhase {
     @Override
     public boolean scrolled(float amountX, float amountY) {
         return false;
     }
 
     @Override
-    public void enter(FightingScreen screen) {
+    public void enter(BattleScreen screen) {
         graphPath.clear();
         super.enter(screen);
     }
 
     @Override
-    public void update(FightingScreen screen) {
+    public void update(BattleScreen screen) {
         super.update(screen);
         screen.pathfinder.searchNodePath(screen.getBoardCell(screen.source.getPosition().cell()), screen.target, graphPath);
 

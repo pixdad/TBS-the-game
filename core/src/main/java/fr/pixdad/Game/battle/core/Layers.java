@@ -1,4 +1,4 @@
-package fr.pixdad.Game.tiled.maps;
+package fr.pixdad.Game.battle.core;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;

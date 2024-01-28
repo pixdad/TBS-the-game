@@ -1,0 +1,816 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": ""
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false // root node is included
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "fr.pixdad.Game.battle.core.BattleState"
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_987858552 { 
+   	label=pixdad
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_583152824 { 
+   	label=Game
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Action914802988[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Action&lt;U,V&gt;</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   _isDone: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   _source: U [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   _target: V [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ animate(delta: float, screen: BattleScreen): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ done()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ActionExecutionFState384334176[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ActionExecutionFState</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ scrolled(amountX: float, amountY: float): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(screen: BattleScreen)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ActionSelectionFState384334176[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ActionSelectionFState</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ enter(screen: BattleScreen)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ scrolled(amountX: float, amountY: float): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(screen: BattleScreen)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+AttackAction914802988[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)AttackAction</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ animate(delta: float, screen: BattleScreen): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+BattleManager808056765[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BattleManager</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   _indexCurrentPlayer: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   levelData: GameLevel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   players: Player[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   stateMachine: DefaultStateMachine&lt;BattleScreen, BattlePhase&gt; [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ currentPlayer(): Player</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAllFighters(deadIncluded: boolean): List&lt;Fighter&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getFighter(cellCoordinates: Vector2, deadIncluded: boolean): Fighter</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getFighter(coordinates: Coordinates, deadIncluded: boolean): Fighter</TD></TR>
+<TR><TD ALIGN="LEFT" >+ moveToNextPlayer(): Player</TD></TR>
+<TR><TD ALIGN="LEFT" >+ nextPlayer(): Player</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+BattlePhase384334176[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BattlePhase</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   currentPlayer: Player [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   delta: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   graphPath: DefaultGraphPath&lt;BoardCellObject&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   modifiedCells: ArrayList&lt;BoardCellObject&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   screen: BattleScreen [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   stateMachine: StateMachine&lt;BattleScreen, BattlePhase&gt; [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ enter(screen: BattleScreen)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ exit(screen: BattleScreen)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ keyDown(keycode: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ keyTyped(character: char): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ keyUp(keycode: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ mouseMoved(screenX: int, screenY: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onMessage(screen: BattleScreen, telegram: Telegram): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ scrolled(v: float, v1: float): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ searchPath(range: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ searchPath(from: Vector2, to: Vector2, range: int, graphPath: DefaultGraphPath&lt;BoardCellObject&gt;): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showPath()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ touchDown(screenX: int, screenY: int, pointer: int, button: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ touchDragged(screenX: int, screenY: int, pointer: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ touchUp(screenX: int, screenY: int, pointer: int, button: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(screen: BattleScreen)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+BattleScreen808056765[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BattleScreen</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   UIheight: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   actions: ArrayDeque&lt;Action&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   battleState: BattleState [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   board: ArrayList&lt;BoardCellObject&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   cellCountMargin: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   cursor: BoardCellObject [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   fighterMapObjects: HashMap&lt;Fighter, TextureMapObject&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   fm: BattleManager [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   level: GameLevel [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   pathfinder: CellMapPathFinder [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   skin: Skin [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   stageUI: Stage [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   statsUI: StatsUI [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- emptyLayer(layer: MapLayer)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getBoardCell(cellposition: Vector2): BoardCellObject</TD></TR>
+<TR><TD ALIGN="LEFT" >+ initMapObjects()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ initStageUI()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ keyDown(keycode: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ keyTyped(character: char): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ keyUp(keycode: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ mouseMoved(screenX: int, screenY: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ render(delta: float)</TD></TR>
+<TR><TD ALIGN="LEFT" >- renderFighter()</TD></TR>
+<TR><TD ALIGN="LEFT" >- renderFightingUI()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ scrolled(amountX: float, amountY: float): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ setCursorPosition(screenX: int, screenY: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ success(player: Player)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ touchDown(screenX: int, screenY: int, pointer: int, button: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ touchDragged(screenX: int, screenY: int, pointer: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ touchUp(screenX: int, screenY: int, pointer: int, button: int): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+BattleState808056765[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BattleState</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   _indexCurrentPlayer: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   board: ArrayList&lt;BoardCellObject&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   currentPath: List&lt;BoardCellObject&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   currentPhase: BattlePhase [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   cursor: BoardCellObject [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   players: Player[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   selected: BoardCellObject[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   turnNumber: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- initBoard(level: GameLevel)</TD></TR>
+<TR><TD ALIGN="LEFT" >- initCursor()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ reset(world: GameWorld, level: GameLevel)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ resetActionContext()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+BoardCellObject808056765[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BoardCellObject</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   cellPosition: Vector2 [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   cellSize: Vector2 [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   previousType: CellType [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   type: CellType [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ revertType()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CellMapGraph1782098922[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CellMapGraph</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   from: BoardCellObject [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isEndOnAllyAllowed: Boolean [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isEndOnEnemyAllowed: Boolean [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isPassageOnAllyAllowed: Boolean [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isPassageOnEnemyAllowed: Boolean [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   screen: BattleScreen [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   to: BoardCellObject [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ from(): BoardCellObject</TD></TR>
+<TR><TD ALIGN="LEFT" >+ from(from: BoardCellObject): CellMapGraph</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getConnections(fromNode: BoardCellObject): Array&lt;Connection&lt;BoardCellObject&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getIndex(node: BoardCellObject): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getIndex(node: BoardCellObject, isPassageOnAllyAllowed: Boolean, isPassageOnEnemyAllowed: Boolean, isEndOnAllyAllowed: Boolean, isEndOnEnemyAllowed: Boolean): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ to(): BoardCellObject</TD></TR>
+<TR><TD ALIGN="LEFT" >+ to(to: BoardCellObject): CellMapGraph</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+CellMapPathFinder703280045[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CellMapPathFinder</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   graph: CellMapGraph [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   heuristic: Heuristic&lt;BoardCellObject&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   pathFinder: IndexedAStarPathFinder&lt;BoardCellObject&gt; [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ searchConnectionPath(startNode: BoardCellObject, endNode: BoardCellObject, outPath: GraphPath&lt;Connection&lt;BoardCellObject&gt;&gt;): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ searchNodePath(startNode: BoardCellObject, endNode: BoardCellObject, outPath: GraphPath&lt;BoardCellObject&gt;): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Coordinates1860649759[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Coordinates</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   cellCoordinates: Vector2 [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isSynchonized: Boolean [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   windowCoordinates: Vector2 [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   worldCoordinates: Vector2 [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ cell(): Vector2</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createCoordinateFromCell(screen: TiledScreen, cellCoordinates: Vector2): Coordinates</TD></TR>
+<TR><TD ALIGN="LEFT" >+ synchronize(screen: TiledScreen)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ window(screen: TiledScreen): Vector2</TD></TR>
+<TR><TD ALIGN="LEFT" >+ world(screen: TiledScreen): Vector2</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Equipment154637267[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Equipment</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   equipedStatsValue: StatsValue [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   possessedStatsValue: StatsValue [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   usedStatsValue: StatsValue [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ExtendedRenderer1740837991[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ExtendedRenderer</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   tiledScreen: TiledScreen [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ renderObject(object: MapObject)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Fighter808056765[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Fighter</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   _hasAttacked: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   _hasMoved: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   _isDead: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   _position: Coordinates [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   baseStats: StatsValue [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   causedDamages: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   character: Character [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   equiped: Map&lt;TYPE, Equipment&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   hp: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   inventory: Equipment[] [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   isVisible: Boolean [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   kills: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   modifiers: ArrayList&lt;StatsValue&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   movementPoints: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   player: Player [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ attack(ennemy: Fighter)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ basicAttakDamages(src: StatsValue, tgt: StatsValue): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ die()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fighterIsDone()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+GameLevel154637267[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)GameLevel</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   layers: Layers [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   levelSize: Vector2 [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   map: TiledMap [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   mapTmxPath: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   teamPositions: Set&lt;Vector2&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addPosition(position: Vector2)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getIntersectCoordinates(first: ArrayList&lt;Coordinates&gt;, second: ArrayList&lt;Coordinates&gt;): ArrayList&lt;Coordinates&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isCellPositionAccessible(col: int, row: int): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Layers808056765[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Layers</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   cells: MapLayer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   fighters: MapLayer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   flyers: MapLayer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   tilesGround: TiledMapTileLayer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   tilesOnGround: TiledMapTileLayer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   ui: MapLayer [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Margin1860649759[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Margin</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   BOTTOM: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   LEFT: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   RIGHT: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   TOP: float [1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MoveAction914802988[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MoveAction</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ animate(delta: float, screen: BattleScreen): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PersoSelectionFState384334176[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)PersoSelectionFState</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ enter(screen: BattleScreen)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ mouseMoved(screenX: int, screenY: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ scrolled(amountX: float, amountY: float): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ touchUp(screenX: int, screenY: int, pointer: int, button: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(screen: BattleScreen)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+PlayablePlayer808056765[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)PlayablePlayer</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ computeAction(level: GameLevel)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ computeTarget(level: GameLevel): Fighter</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getSource(level: GameLevel): Fighter</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Player808056765[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Player</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   action: Action&lt;Object, Object&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   fightersToAct: List&lt;Fighter&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   source: Fighter [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   target: BoardCellObject [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   team: List&lt;Fighter&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addTeamMember(fighter: Fighter)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ computeAction(level: GameLevel)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ computeTarget(level: GameLevel): Fighter</TD></TR>
+<TR><TD ALIGN="LEFT" >+ fighterHasActed(fighter: Fighter)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getSource(level: GameLevel): Fighter</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getTeam(deadIncluded: boolean): List&lt;Fighter&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ initTurn()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+StatsUI137705934[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)StatsUI</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   selectWin: Window [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   selected: Fighter [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   skin: Skin [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   targetWin: Window [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   targeted: Fighter [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ empty()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ emptyTargeted()</TD></TR>
+<TR><TD ALIGN="LEFT" >- emptyWindow(window: Window)</TD></TR>
+<TR><TD ALIGN="LEFT" >- formatStat(current: int, modif: int): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showSelected(ft: Fighter)</TD></TR>
+<TR><TD ALIGN="LEFT" >- showStats(win: Window, ft: Fighter, hpModif: int, statsModif: StatsValue)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ showTargeted(ft: Fighter, hpMofif: int, modif: StatsValue)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+StatsValue154637267[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)StatsValue</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   atk: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   def: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   hpMax: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   str: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ add(value: StatsValue): StatsValue</TD></TR>
+<TR><TD ALIGN="LEFT" >+ cpy(): StatsValue</TD></TR>
+<TR><TD ALIGN="LEFT" >+ opp(): StatsValue</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TBSGame1184553322[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TBSGame</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   batch: SpriteBatch [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   screens: ArrayList&lt;Screen&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addScreen(newScreen: Screen)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ closeScreen(): Boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ create()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TargetSelectionFState384334176[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TargetSelectionFState</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ enter(screen: BattleScreen)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ keyUp(keycode: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ mouseMoved(screenX: int, screenY: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ scrolled(amountX: float, amountY: float): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ touchUp(screenX: int, screenY: int, pointer: int, button: int): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ update(screen: BattleScreen)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+TiledScreen1740837991[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TiledScreen</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   TAG: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   camera: OrthographicCamera [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   cameraBounds: Margin [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   cameraPosition: Vector3 [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   cameraSpeed: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   cellSize: Vector2 [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   game: TBSGame [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   gutters: Margin [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   moveCameraToBottom: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   moveCameraToLeft: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   moveCameraToRight: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   moveCameraToTop: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   renderer: ExtendedRenderer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   screenSizePx: Vector2 [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   viewportSizePX: Vector2 [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   worldSizePX: Vector2 [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   zoom: float [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addInLayer(layer: MapLayer, object: MapObject)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ addInLayer(layer: MapLayer, objects: MapObjects)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ cell2window(cellCoord: Vector2): Vector2</TD></TR>
+<TR><TD ALIGN="LEFT" >+ cell2world(cellCoord: Vector2): Vector2</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dXwindow2world(dXwindow: float): float</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dXworld2window(dXworld: float): float</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dYwindow2world(dYwindow: float): float</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dYworld2window(dYworld: float): float</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dispose()</TD></TR>
+<TR><TD ALIGN="LEFT" ># drawRectangleMapObject(robject: RectangleMapObject, batch: Batch)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ hide()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ pause()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeFromLayer(layer: MapLayer, object: MapObject)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ removeFromLayer(layer: MapLayer, objects: MapObjects)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ renderCamera(delta: float)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ renderMap()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ resize(width: int, height: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ resume()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ show()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updateViewport()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ window2cell(windowCoord: Vector2): Vector2</TD></TR>
+<TR><TD ALIGN="LEFT" >+ window2world(windowCoord: Vector2): Vector2</TD></TR>
+<TR><TD ALIGN="LEFT" >+ world2cell(worldCoord: Vector2): Vector2</TD></TR>
+<TR><TD ALIGN="LEFT" >+ world2window(worldCoord: Vector2): Vector2</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+WaitAction914802988[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)WaitAction</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   _deltaStart: float [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   _seconds: float [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ animate(delta: float, screen: BattleScreen): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+WarriorCharacter154637267[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)WarriorCharacter</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   baseStatsValue: StatsValue [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   level: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   texture: Texture [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   textureRegion: TextureRegion [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ levelup()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+Action914802988 -> AttackAction914802988[arrowhead=none, arrowtail=empty, dir=both];
+Action914802988 -> MoveAction914802988[arrowhead=none, arrowtail=empty, dir=both];
+Action914802988 -> WaitAction914802988[arrowhead=none, arrowtail=empty, dir=both];
+BattleManager808056765 -> BattlePhase384334176[label="stateMachine
+[0..1]"];
+BattleManager808056765 -> BattleScreen808056765[label="stateMachine
+[0..1]"];
+BattleManager808056765 -> GameLevel154637267[label="levelData
+[0..1]"];
+BattleManager808056765 -> Player808056765[label="players
+[0..*]"];
+BattlePhase384334176 -> ActionExecutionFState384334176[arrowhead=none, arrowtail=empty, dir=both];
+BattlePhase384334176 -> ActionSelectionFState384334176[arrowhead=none, arrowtail=empty, dir=both];
+BattlePhase384334176 -> BattleScreen808056765[label="screen
+[0..1]"];
+BattlePhase384334176 -> BattleScreen808056765[label="stateMachine
+[0..1]"];
+BattlePhase384334176 -> BoardCellObject808056765[label="graphPath
+[0..1]"];
+BattlePhase384334176 -> BoardCellObject808056765[label="modifiedCells
+[0..*]"];
+BattlePhase384334176 -> PersoSelectionFState384334176[arrowhead=none, arrowtail=empty, dir=both];
+BattlePhase384334176 -> Player808056765[label="currentPlayer
+[0..1]"];
+BattlePhase384334176 -> TargetSelectionFState384334176[arrowhead=none, arrowtail=empty, dir=both];
+BattleScreen808056765 -> Action914802988[label="actions
+[0..*]"];
+BattleScreen808056765 -> BattleManager808056765[label="fm
+[0..1]"];
+BattleScreen808056765 -> BattleState808056765[label="battleState
+[0..1]"];
+BattleScreen808056765 -> BoardCellObject808056765[label="board
+[0..*]"];
+BattleScreen808056765 -> BoardCellObject808056765[label="cursor
+[0..1]"];
+BattleScreen808056765 -> CellMapPathFinder703280045[label="pathfinder
+[0..1]"];
+BattleScreen808056765 -> Fighter808056765[label="fighterMapObjects
+[0..*]"];
+BattleScreen808056765 -> GameLevel154637267[label="level
+[0..1]"];
+BattleScreen808056765 -> StatsUI137705934[label="statsUI
+[0..1]"];
+BattleState808056765 -> BattlePhase384334176[label="currentPhase
+[0..1]"];
+BattleState808056765 -> BoardCellObject808056765[label="board
+[0..*]"];
+BattleState808056765 -> BoardCellObject808056765[label="currentPath
+[0..*]"];
+BattleState808056765 -> BoardCellObject808056765[label="cursor
+[0..1]"];
+BattleState808056765 -> BoardCellObject808056765[label="selected
+[0..*]"];
+BattleState808056765 -> Player808056765[label="players
+[0..*]"];
+CellMapGraph1782098922 -> BattleScreen808056765[label="screen
+[0..1]"];
+CellMapGraph1782098922 -> BoardCellObject808056765[label="from
+[0..1]"];
+CellMapGraph1782098922 -> BoardCellObject808056765[label="to
+[0..1]"];
+CellMapPathFinder703280045 -> BoardCellObject808056765[label="heuristic
+[0..1]"];
+CellMapPathFinder703280045 -> BoardCellObject808056765[label="pathFinder
+[0..1]"];
+CellMapPathFinder703280045 -> CellMapGraph1782098922[label="graph
+[0..1]"];
+Equipment154637267 -> StatsValue154637267[label="equipedStatsValue
+[0..1]"];
+Equipment154637267 -> StatsValue154637267[label="possessedStatsValue
+[0..1]"];
+Equipment154637267 -> StatsValue154637267[label="usedStatsValue
+[0..1]"];
+ExtendedRenderer1740837991 -> TiledScreen1740837991[label="tiledScreen
+[0..1]"];
+Fighter808056765 -> Coordinates1860649759[label="_position
+[0..1]"];
+Fighter808056765 -> Equipment154637267[label="equiped
+[0..*]"];
+Fighter808056765 -> Equipment154637267[label="inventory
+[0..*]"];
+Fighter808056765 -> Player808056765[label="player
+[0..1]"];
+Fighter808056765 -> StatsValue154637267[label="baseStats
+[0..1]"];
+Fighter808056765 -> StatsValue154637267[label="modifiers
+[0..*]"];
+Fighter808056765 -> WarriorCharacter154637267[arrowhead=none, arrowtail=empty, dir=both];
+GameLevel154637267 -> Layers808056765[label="layers
+[0..1]"];
+Player808056765 -> Action914802988[label="action
+[0..1]"];
+Player808056765 -> BoardCellObject808056765[label="target
+[0..1]"];
+Player808056765 -> Fighter808056765[label="fightersToAct
+[0..*]"];
+Player808056765 -> Fighter808056765[label="source
+[0..1]"];
+Player808056765 -> Fighter808056765[label="team
+[0..*]"];
+Player808056765 -> PlayablePlayer808056765[arrowhead=none, arrowtail=empty, dir=both];
+StatsUI137705934 -> Fighter808056765[label="selected
+[0..1]"];
+StatsUI137705934 -> Fighter808056765[label="targeted
+[0..1]"];
+TiledScreen1740837991 -> BattleScreen808056765[arrowhead=none, arrowtail=empty, dir=both];
+TiledScreen1740837991 -> ExtendedRenderer1740837991[label="renderer
+[0..1]"];
+TiledScreen1740837991 -> Margin1860649759[label="cameraBounds
+[0..1]"];
+TiledScreen1740837991 -> Margin1860649759[label="gutters
+[0..1]"];
+TiledScreen1740837991 -> TBSGame1184553322[label="game
+[0..1]"];
+WarriorCharacter154637267 -> StatsValue154637267[label="baseStatsValue
+[0..1]"];
+    
+}
+@enduml

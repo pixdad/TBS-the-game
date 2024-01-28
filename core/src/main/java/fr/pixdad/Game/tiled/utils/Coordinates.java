@@ -1,6 +1,5 @@
 package fr.pixdad.Game.tiled.utils;
 
-import fr.pixdad.Game.fight.states.FightingScreen;
 import fr.pixdad.Game.tiled.maps.TiledScreen;
 import com.badlogic.gdx.math.Vector2;
 
@@ -22,7 +21,7 @@ public class Coordinates {
         isSynchonized = false;
     }
 
-    public Coordinates(FightingScreen screen) {
+    public Coordinates(TiledScreen screen) {
         windowCoordinates = new Vector2();
         worldCoordinates = new Vector2();
         cellCoordinates = new Vector2(0,0);
@@ -57,16 +56,16 @@ public class Coordinates {
         this.isSynchonized = false;
     }
 
-    public void synchronize(FightingScreen screen) {
+    public void synchronize(TiledScreen screen) {
         if (!isSynchonized) {
             setCellCoordinates(this.cellCoordinates, screen);
         }
     }
-    public Vector2 window(FightingScreen screen) {
+    public Vector2 window(TiledScreen screen) {
         synchronize(screen);
         return windowCoordinates;
     }
-    public Vector2 world(FightingScreen screen) {
+    public Vector2 world(TiledScreen screen) {
         synchronize(screen);
         return worldCoordinates;
     }
@@ -83,7 +82,7 @@ public class Coordinates {
         return c.cellCoordinates.equals(this.cellCoordinates);
     }
 
-    public static Coordinates createCoordinateFromCell(FightingScreen screen, Vector2 cellCoordinates) {
+    public static Coordinates createCoordinateFromCell(TiledScreen screen, Vector2 cellCoordinates) {
         Coordinates c = new Coordinates(screen);
         c.setCellCoordinates(cellCoordinates);
         return c;

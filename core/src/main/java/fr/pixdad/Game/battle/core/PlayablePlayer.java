@@ -1,6 +1,5 @@
-package fr.pixdad.Game.fight;
+package fr.pixdad.Game.battle.core;
 
-import com.badlogic.gdx.InputProcessor;
 import fr.pixdad.Game.data.entities.GameLevel;
 
 public class PlayablePlayer extends Player {
@@ -10,17 +9,17 @@ public class PlayablePlayer extends Player {
     }
 
     @Override
-    public Fighter selectSource(GameLevel level) {
+    public Fighter getSource(GameLevel level) {
         return null;
     }
 
     @Override
-    public Fighter selectTarget(GameLevel level) {
+    public Fighter computeTarget(GameLevel level) {
         return null;
     }
 
     @Override
-    public void selectAction(GameLevel level) {
+    public void computeAction(GameLevel level) {
 
     }
 
